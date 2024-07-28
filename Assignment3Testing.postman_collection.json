@@ -1,0 +1,2066 @@
+{
+	"info": {
+		"_postman_id": "b094e4ef-e38f-4d09-b58e-5ee437974caa",
+		"name": "Assignment3Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36731963"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Creating new product - success case",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create Product - Success\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.have.jsonBody('description', 'This is black and white jacket');\r",
+									"});\r",
+									"pm.test(\"Response has product ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"This is black and white jacket\",\r\n  \"image\": \"https://th.bing.com/th/id/OIP.rmUZy2_yWNqgrew-kPxT_gHaIa?w=202&h=230&c=7&r=0&o=5&dpr=1.3&pid=1.7\",\r\n  \"pricing\": 55,\r\n  \"shippingCost\": 7.00,\r\n  \"rating\": 4.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Product",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating new product - failure case",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"\",\r\n  \"image\": \"invalid-url\",\r\n  \"pricing\": -10,\r\n  \"shippingCost\": -5,\r\n  \"rating\": 10\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Product",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "For getting a single product - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response contains user details\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Product/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "For getting all the products - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Product",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating a product - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									" pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"This is winter jacket\",\r\n  \"image\": \"https://th.bing.com/th/id/OIP.BIwyx75nFZA_N1gCvCgvZAHaJ7?w=202&h=272&c=7&r=0&o=5&dpr=1.3&pid=1.7\",\r\n  \"pricing\": 10,\r\n  \"shippingCost\": 2,\r\n  \"rating\": 3.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Product/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a product - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Product - Success\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Product/14",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "For getting a single product - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"pm.test(\"Error message for non-existent product\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"error\", \"product not found.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Product/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating a product - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message for non-existent product\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"error\", \"product not found.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"This product is new\",\r\n  \"image\": \"https://th.bing.com/th?id=OIP.YguOkIP2xIjpoReX_q0R4gHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2\",\r\n  \"pricing\": 75,\r\n  \"shippingCost\": 3,\r\n  \"rating\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Product/78",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a product - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message for non-existent product\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"error\", \"product not found.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Product/10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Creating User - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has user ID\", function () {\r",
+									"    const jsonData = pm.response.text();\r",
+									"    pm.expect(jsonData).to.include(\"id\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"djpd23@gmail.com\",\r\n    \"password\": \"thatisid\",\r\n    \"username\": \"piyush\",\r\n    \"shippingAddress\": \"cambridge\",\r\n    \"purchaseHistory\": \"\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/User",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a user - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/User/12",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting all the users - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/User",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting a single user - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains user details\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"    pm.expect(jsonData).to.have.property(\"email\");\r",
+									"    pm.expect(jsonData).to.have.property(\"username\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/User/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating a user - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"email\": \"preet@gmail.com\",\r\n    \"password\": \"thisispreet\",\r\n    \"username\": \"Preetmeet\",\r\n    \"purchaseHistory\": \"Order343\",\r\n    \"shippingAddress\": \"brampton\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/User/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating a user - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message for missing email\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\");\r",
+									"    pm.expect(jsonData.errors).to.have.property(\"Email\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"pass\",\r\n    \"username\" : \"deep\",\r\n    \"shippingAddress\": \"kitchener\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/User",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting a user - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message for non-existent user\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"error\", \"User not found.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/User/8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating a user - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message for invalid email\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\");\r",
+									"    pm.expect(jsonData.errors).to.have.property(\"Email\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"thisis\",\r\n    \"password\": \"thisispreet\",\r\n    \"username\": \"Preetmeet\",\r\n    \"purchaseHistory\": \"Order343\",\r\n    \"shippingAddress\": \"brampton\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/User/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a user - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Error message for non-existent user\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"error\", \"User not found.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/User/66",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"66"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Creating a new cart - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Create Cart - Response should contain id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"cartProducts\": [\r\n        {\r\n            \"productId\": 4,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"productId\": 5,\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating a new cart - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create Cart failure with Missing Fields - Response contains validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"    pm.expect(jsonData).to.have.property('errors');\r",
+									"    pm.expect(jsonData.errors).to.be.an('object');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"\",\r\n    \"cartProducts\": [\r\n        {\r\n            \"productId\": \"\",\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"productId\": \"\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting all cart things - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get All Carts - Response contains cart objects\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if (jsonData.length > 0) {\r",
+									"        pm.expect(jsonData[0]).to.have.property('id');\r",
+									"        pm.expect(jsonData[0]).to.have.property('userId');\r",
+									"        pm.expect(jsonData[0]).to.have.property('cartProducts');\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting a single cart - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Cart by ID - Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get Cart by ID - Response contains cart details\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id', 1);\r",
+									"    pm.expect(jsonData).to.have.property('userId');\r",
+									"    pm.expect(jsonData).to.have.property('cartProducts');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting a single cart - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Nonexistent Cart - Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get Nonexistent Cart - Response contains not found message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('message', 'Cart not found.');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart/83762",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart",
+								"83762"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating cart - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update Cart with Valid Data - Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Update Cart with Valid Data - Response contains updated cart\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id', 6);\r",
+									"    pm.expect(jsonData.cartProducts.$values[0].quantity).to.eql(3);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"cartProducts\": [\r\n    {\r\n      \"productId\": 5,\r\n      \"quantity\": 3\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart/6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating cart - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update Cart with Invalid Data - Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Update Cart with Invalid Data - Response contains validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('errors');\r",
+									"    pm.expect(jsonData.errors).to.be.an('object').that.is.not.empty;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"cartProducts\": [\r\n    {\r\n      \"productId\": 5,\r\n      \"quantity\": -3\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart/6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a cart item - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Cart - Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart/20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a cart item - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Nonexistent Cart - Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Delete Nonexistent Cart - Response contains not found message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('message', 'Cart not found.');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Cart/668",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Cart",
+								"668"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Creating new comment - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has JSON format\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ProductId\": 3,\r\n  \"UserId\": 2,\r\n  \"Rating\": 4,\r\n  \"Images\": \"data:image/jpeg;base64,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\",\r\n  \"Text\": \"These yellow shoes are amazing\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating new comment - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has JSON format\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Rating\": 6,\r\n  \"Text\": \"new comment for the yellow shoes.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting all the comments - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting single comment - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains the correct comment\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"product\");\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"user\");\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"rating\");\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"images\");\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"text\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment/9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting single comment - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment/55",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment",
+								"55"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating the comment - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ProductId\": 5,\r\n  \"UserId\": 4,\r\n  \"Rating\": 5,\r\n  \"Images\": \"data:image/jpeg;base64,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\",\r\n  \"Text\": \"This is black color jacket\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating the comment - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"errors\");\r",
+									"\r",
+									"    if (jsonData.errors.UserId) {\r",
+									"        pm.expect(jsonData.errors).to.have.property(\"UserId\");\r",
+									"    } else {\r",
+									"        console.warn(\"UserId error not found\");\r",
+									"    }\r",
+									"\r",
+									"    if (jsonData.errors.ProductId) {\r",
+									"        pm.expect(jsonData.errors).to.have.property(\"ProductId\");\r",
+									"    } else {\r",
+									"        console.warn(\"ProductId error not found\");\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 6,\r\n    \"images\": [],\r\n    \"text\": \"shrt\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment/88",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment",
+								"88"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting the comment - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment/12",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting the comment - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Comment/77",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Comment",
+								"77"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrderHistory",
+			"item": [
+				{
+					"name": "Creating new order - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create Order - Status code is 201 Created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create Order - Response contains created order\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData).to.have.property('userId');\r",
+									"    pm.expect(jsonData).to.have.property('orderDate');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create Order - Response contains valid orderProducts\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if (jsonData.orderProducts && jsonData.orderProducts.length > 0) {\r",
+									"        pm.expect(jsonData.orderProducts[0]).to.have.property('productId');\r",
+									"        pm.expect(jsonData.orderProducts[0]).to.have.property('quantity');\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"orderDate\": \"2024-07-25T00:00:00\",\r\n    \"orderProducts\": [\r\n        {\r\n            \"productId\": 5,\r\n            \"quantity\": 3        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Order",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creating new order - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create Order - Status code is 400 Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" :2,\r\n    \"orderDate\": \"2024-07-25T00:00:00\",\r\n    \"orderProducts\": [\r\n        {\r\n            \"productId\": 5343,\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Order",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting all the orders - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Orders - Status code is 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get All Carts - Response contains order objects\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    if (jsonData.length > 0) {\r",
+									"        pm.expect(jsonData[0]).to.have.property('id');\r",
+									"        pm.expect(jsonData[0]).to.have.property('userId');\r",
+									"        pm.expect(jsonData[0]).to.have.property('orderProducts');\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Order",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting single order - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get Order by Id - Status code is 200 OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get Order by Id - Response contains order details\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData).to.have.property('userId');\r",
+									"    pm.expect(jsonData).to.have.property('orderDate');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Order/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting single user - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get Nonexistent Order - Response contains not found message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('message', 'order not found.');\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Order/698",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"698"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating order - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"userId\": 1,\r\n    \"orderDate\": \"2024-07-26T00:00:00\",\r\n    \"orderProducts\": [\r\n        {\r\n            \"productId\": 5,\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Order/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updating order - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 993,\r\n    \"userId\": 1,\r\n    \"orderDate\": \"2024-07-26T00:00:00\",\r\n    \"orderProducts\": [\r\n        {\r\n            \"productId\": 5,\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Order/993",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"993"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting order - success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete Order - Status code is 204 No Content\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should be empty\", function () {\r",
+									"    pm.expect(pm.response.text()).to.equal('');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Order/13",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting order - failure",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get Nonexistent Order - Response contains not found message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('message', 'order not found.');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Order/432",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Order",
+								"432"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Checking the server",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
